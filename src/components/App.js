@@ -15,6 +15,18 @@ class App extends Component {
         ],
         filter: ""
     };
+    componentDidMount() {
+        console.log("componentDidMount")
+      const contacts = JSON.parse(localStorage.getItem("contacts"));
+      if(contacts){
+          this.setState({contacts});
+      }
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if(this.state.contacts !== prevState.contacts){
+            localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+        }
+    }
 
     submitContact = data => {
         const isNameExist = this.state.contacts.some(
